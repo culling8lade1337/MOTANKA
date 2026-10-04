@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MOTANKA: Ukrainian street food truck in Copenhagen. Menu in Danish, English and Ukrainian.">
+<meta name="theme-color" content="#0c0606">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2716%27 fill=%27%23a61e22%27/%3E%3Cellipse cx=%2716%27 cy=%2716%27 rx=%277%27 ry=%2710%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273.5%27/%3E%3C/svg%3E">
+<title>Motanka CPH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@700;800;900&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* Layout: black street-poster page. Giant red wordmark hero, sticky nav, filterable menu grid,
+   one "find the truck" block. Red cross-stitch bands (vyshyvanka rhombus) separate the sections. */
+:root {
+  --ink: #0c0606;
+  --wine: #1a0809;
+  --line: #3a1417;
+  --red: #e10600;
+  --blush: #ffc7c6;
+  --bone: #ffffff;
+  --muted: #ead8d7;
+  --display: 'Fira Sans Extra Condensed', 'Arial Narrow', Impact, sans-serif;
+  --body: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  padding-inline: 0;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--blush); outline-offset: 3px; }
+
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 16px; }
+
+/* nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: #000; border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 10px; }
+.mark { font-family: var(--display); font-weight: 900; font-size: 28px; letter-spacing: 0.06em; color: var(--red); text-decoration: none; line-height: 1; }
+/* woven O: the logo's rope-wrapped letter, sized in em so it follows the wordmark */
+.knot { display: inline-block; width: 0.687em; height: 0.761em; vertical-align: -0.0673em; margin-inline: -0.04em; color: currentColor; overflow: visible; }
+.emblem { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: var(--bone); font-size: 38px; line-height: 1; flex: none; }
+.emblem .knot { margin: 0; vertical-align: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; order: 3; width: 100%; }
+.lang { display: flex; gap: 6px; }
+@media (min-width: 720px) { .links { order: 0; width: auto; } }
+
+.pill, .btn {
+  font-family: var(--body); font-weight: 500; font-size: 14px; letter-spacing: 0.02em; text-transform: uppercase;
+  border-radius: 15px; padding: 10px 14px; border: 1px solid transparent; background: transparent; color: var(--bone);
+  text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; line-height: 1.1;
+}
+.pill { color: var(--blush); padding: 10px 16px; }
+.pill:hover { color: var(--bone); }
+.pill[aria-pressed="true"], .pill.on { background: var(--red); color: var(--bone); }
+.btn-red { background: var(--red); color: var(--bone); }
+.btn-red:hover { background: #ff1a0d; }
+.btn-ghost { border-color: var(--bone); }
+.btn-ghost:hover { background: var(--bone); color: #000; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* stitch band */
+.stitch { height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='20'%3E%3Cg fill='%23e10600'%3E%3Crect x='14' y='0' width='4' height='4'/%3E%3Crect x='10' y='4' width='4' height='4'/%3E%3Crect x='18' y='4' width='4' height='4'/%3E%3Crect x='6' y='8' width='4' height='4'/%3E%3Crect x='14' y='8' width='4' height='4'/%3E%3Crect x='22' y='8' width='4' height='4'/%3E%3Crect x='10' y='12' width='4' height='4'/%3E%3Crect x='18' y='12' width='4' height='4'/%3E%3Crect x='14' y='16' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E") repeat-x center; }
+
+/* hero */
+.hero { padding-block: 48px 40px; text-align: center; background: var(--wine); }
+.eyebrow { font-weight: 500; font-size: 14px; text-transform: uppercase; color: var(--blush); letter-spacing: 0.12em; margin: 0 0 20px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 900; color: var(--red); text-transform: uppercase;
+  font-size: clamp(4.5rem, 24vw, 22rem); line-height: 0.8; letter-spacing: 0.04em; margin: 0; padding-bottom: 0.1em; white-space: nowrap;
+}
+.aside { font-family: var(--display); font-weight: 800; text-transform: uppercase; color: var(--bone); font-size: clamp(1.4rem, 5vw, 3rem); letter-spacing: 0.06em; margin: 20px 0 0; line-height: 1; }
+.lede { max-width: 56ch; margin: 24px auto 0; color: var(--muted); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 28px; }
+
+/* sections */
+.section { padding-block: 64px; }
+.kicker { font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blush); margin: 0 0 12px; text-align: center; }
+.h-lg { font-family: var(--display); font-weight: 900; text-transform: uppercase; color: var(--red); font-size: clamp(4rem, 14vw, 8rem); line-height: 0.8; letter-spacing: 0.03em; margin: 0; text-align: center; text-wrap: balance; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 32px 0 32px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 16px; }
+.card { background: var(--wine); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.tag { align-self: flex-start; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blush); border: 1px solid var(--line); border-radius: 15px; padding: 4px 10px; }
+.card h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 36px; line-height: 0.95; letter-spacing: 0.03em; margin: 8px 0 0; overflow-wrap: anywhere; }
+.sub { color: var(--blush); font-size: 15px; margin: 0; }
+.card p.d { color: var(--muted); font-size: 16px; margin: 4px 0 0; }
+
+.about { background: var(--wine); }
+.about .lede { margin-top: 24px; font-size: 20px; color: var(--bone); }
+
+.find { text-align: center; }
+.find .lede { margin-top: 24px; }
+.footer { padding-block: 32px 40px; color: var(--blush); font-size: 14px; }
+.footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; }
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="knot" viewBox="8 8 408 452"><path fill="currentColor" fill-rule="evenodd" d="M187.7 11C195.4 10.5 205.8 10 215 10.4C224.2 10.9 235.3 12.3 243 13.5C250.7 14.7 254.7 15.9 261 17.8C267.3 19.7 274.7 22.3 281 25C287.3 27.7 293.3 30.7 299 34C304.7 37.4 310 40.9 315.3 45C320.6 49.1 325.3 52.7 331 58.4C336.7 64 344.1 74.9 349.4 79C354.8 83.1 359.1 81.5 363 83C366.9 84.5 370.3 86.5 372.9 88C375.6 89.5 376.9 90.5 379 92.3C381.1 94.1 383.9 96.9 385.7 99C387.5 101.1 388.8 103.2 389.8 105C390.9 106.8 391.4 107.7 392.1 110C392.8 112.3 393.9 116 394.1 119C394.4 122 394 125.5 393.5 128C393.1 130.5 392.1 132.3 391.4 134C390.7 135.7 390.8 136 389.3 138C387.7 140 383.3 143.8 382.4 146C381.4 148.2 383 150 383.5 151C383.9 152 383.1 151.9 385 151.9C386.9 151.9 392 150.9 395 151.2C398 151.5 401.1 152.6 403 153.4C405 154.2 405.3 154.7 406.7 156C408.1 157.3 410 159.2 411.1 161C412.2 162.8 412.9 165.2 413.3 167C413.8 168.8 413.9 170.2 413.7 172C413.6 173.8 413.8 175.2 412.6 178C411.3 180.8 409.1 185.3 406.1 189C403.2 192.7 398.2 197.3 395 200.2C391.8 203 390.5 203.9 387 206C383.5 208.1 378.4 210.9 373.7 213C369.1 215.1 366.1 216.5 359 218.3C351.9 220.2 342.3 222.6 331 224C319.7 225.4 305.5 226.5 291 226.6C276.5 226.7 259.8 225.7 244 224.5C228.2 223.4 214.7 222.3 196 219.5C177.3 216.7 152.2 212 132 207.8C111.8 203.7 86 197.2 75 194.8C64 192.4 69 193.8 66 193.6C63 193.5 60.7 193.3 57 193.7C53.3 194.2 47.2 195.6 44 196.6C40.8 197.5 40.3 198 38 199.4C35.7 200.7 32 203.1 30 204.7C28 206.2 27.1 207.2 26 208.6C24.9 210 24.2 211.3 23.5 213C22.9 214.7 22.4 217.2 22.2 219C22 220.8 22.1 222.2 22.6 224C23 225.8 24.4 228.7 25 229.7C25.6 230.7 25.8 230 26 229.9C26.2 229.8 26.1 231.5 26.3 229C26.4 226.5 25.9 218.2 26.7 215C27.4 211.8 29.2 211.4 30.6 210C32 208.6 32.9 207.9 35 206.6C37.1 205.3 40.7 203.1 43.2 202C45.7 200.9 47.5 200.3 50 199.8C52.5 199.2 55.2 198.8 58 198.6C60.8 198.5 64.7 198.7 67 198.9C69.3 199 70.7 199.2 72 199.6C73.3 199.9 74.1 195.6 74.6 201C75.1 206.4 74.6 224.2 74.9 232C75.2 239.8 76.2 244.5 76.6 248C77.1 251.5 77.3 251.9 77.7 253C78.1 254.1 36 253.6 79 254.5C122 255.4 293 257.6 336 258.2C379 258.8 336.8 258.4 337.2 258C337.6 257.6 337.4 261.1 338.4 256C339.4 250.9 339.6 232.7 343 227.3C346.4 221.8 354 224.7 359 223.1C364 221.6 367.7 220.6 373 218.3C378.3 215.9 387.9 210.2 391 209C394.1 207.8 391.8 207.8 391.9 211C392 214.2 392.1 220.3 391.5 228C390.9 235.7 388.7 252 388.3 257C387.9 262 387.2 257.2 389 258.2C390.8 259.3 396.7 261.8 399 263.3C401.3 264.8 401.9 265.8 403 267.1C404.1 268.3 404.9 269 405.5 271C406 273 406.8 276.2 406.6 279C406.3 281.8 405.7 284.8 403.8 288C401.9 291.2 397.8 295.7 395 298.3C392.2 300.8 389.7 302 387 303.4C384.3 304.8 382.7 305.5 379 306.5C375.3 307.5 372.5 308.7 365 309.6C357.5 310.4 347.5 311.4 334 311.6C320.5 311.8 299 311.3 284 310.9C269 310.5 256.5 309.9 244 309.2C231.5 308.5 219.7 307.5 209 306.5C198.3 305.4 193.7 305.2 180 303C166.3 300.8 140.3 296.1 127 293.3C113.7 290.4 110 289 100 286.1C90 283.2 76.2 278 67 275.7C57.8 273.3 50.7 272.4 45 271.8C39.3 271.1 35.7 271.4 33 271.6C30.3 271.8 30.1 271.4 29 273C27.9 274.6 26.5 278 26.5 281C26.6 284 28.1 288.2 29.4 291C30.7 293.8 33.2 296.5 34.3 298C35.4 299.5 35.6 299.5 36 299.8C36.4 300 37.8 303 37 299.4C36.2 295.8 32 282 31.2 278C30.3 274 30 275.8 32 275.3C34 274.8 38.2 274.6 43 275C47.8 275.4 55.3 276.6 61 277.7C66.7 278.8 72.8 280.4 77 281.7C81.2 282.9 82.4 279.8 86.2 285C90.1 290.2 97.4 308 100 313.1C102.6 318.2 101.2 314.9 102 315.5C102.8 316.1 97.3 314.9 105 316.9C112.7 318.9 135.5 324.7 148 327.4C160.5 330.1 167.5 331.2 180 333.1C192.5 335.1 205.2 336.8 223 338.9C240.8 341 275.7 344.7 287 345.6C298.3 346.4 289 345.8 291 344.2C293 342.6 295.1 340.9 299.2 336C303.4 331.1 307.9 318.2 316 314.6C324.1 310.9 339 314.5 348 314.1C357 313.6 366.3 311.9 370 311.9C373.7 311.9 370.9 312.3 370.3 314C369.8 315.7 368.9 317.7 366.6 322C364.2 326.3 360.9 333.2 356.2 340C351.4 346.8 342.7 357.5 338 363C333.3 368.5 331.8 369.6 328 373.1C324.2 376.5 321.6 379.2 315 383.8C308.4 388.5 292.6 398.1 288.6 401C284.6 403.9 289.4 401.7 291 401.5C292.6 401.4 291.3 401.8 298 400.3C304.7 398.7 323 394.6 331 392.4C339 390.3 342 388.9 346 387.2C350 385.6 353 383.9 355 382.5C357 381.1 357.7 380 358 379C358.4 378 358.5 378 357 376.8C355.5 375.6 351.9 373.4 349 371.9C346.1 370.4 341.3 369 339.8 368C338.4 367 338.9 367.4 340.1 366C341.3 364.6 343.8 359.8 347 359.5C350.2 359.3 355.7 362.3 359 364.2C362.3 366.2 365.3 369 367 371.4C368.7 373.9 369.3 376.6 369.4 379C369.5 381.4 368.8 384 367.7 386C366.6 388 365.8 389.3 363 391.3C360.2 393.3 354.9 396.1 350.9 398C346.9 399.9 345.5 400.6 339 402.5C332.5 404.4 318.7 407.7 312 409.3C305.3 410.9 305.2 411.1 299 412.1C292.8 413.2 283 414.7 275 415.6C267 416.5 262.3 417.1 251 417.8C239.7 418.4 222.8 419.6 207 419.7C191.2 419.9 174.7 419.4 156 418.6C137.3 417.8 107 415.8 95 414.9C83 414 89.7 414.4 84 413.1C78.3 411.9 65.8 408.4 61 407.5C56.2 406.6 56.5 407.2 55 407.7C53.5 408.1 52.5 409.1 51.9 410C51.3 410.9 51.2 411.9 51.3 413C51.5 414.1 52.2 415.7 53 416.5C53.8 417.4 54.8 417.8 56 418.3C57.2 418.7 55.3 419 60 419.2C64.7 419.4 78.8 419.3 84 419.5C89.2 419.7 88.5 419.9 91 420.5C93.5 421.1 95.7 421.5 99 422.9C102.3 424.3 107.7 427.1 110.7 429C113.7 430.9 115 432.1 117 434C119 435.9 121.1 437.9 123 440.4C124.9 442.9 127.6 446.7 128.7 449C129.7 451.3 129.2 452.8 129.1 454C129 455.2 128.7 455.4 128 456C127.3 456.6 126 457.3 125 457.6C124 457.8 122.8 457.7 122 457.5C121.2 457.2 121.2 457.7 120 456.2C118.8 454.7 116.7 450.6 115 448.4C113.3 446.2 112.7 445.2 110 443C107.4 440.8 101.8 436.9 99 435.2C96.2 433.4 95.7 433.4 93 432.7C90.3 432 88.2 431.3 83 430.9C77.8 430.5 66.8 430.8 62 430.6C57.2 430.3 56.5 430 54 429.3C51.5 428.6 49.1 427.9 47 426.2C44.9 424.5 42.4 421.4 41.3 419C40.1 416.6 40 414.3 40.1 412C40.2 409.7 40.8 407 41.7 405C42.6 403 43.8 401.3 45.6 400C47.3 398.7 49.8 397.6 52 397C54.2 396.4 56.5 396.4 59 396.5C61.5 396.5 61.8 396.1 67 397.2C72.2 398.2 84.5 401.7 90 402.9C95.5 404 93.5 403.7 100 404.2C106.5 404.7 123.7 405.8 129 405.9C134.3 406 133 405.9 132 405C131 404.1 129.3 402.4 123 400.8C116.7 399.2 101.8 397.2 94 395.3C86.2 393.4 81 391.4 76 389.4C71 387.4 67 385.1 64 383.3C61 381.6 60 380.6 58 378.9C56 377.3 53.7 375.3 52 373.5C50.3 371.6 49.2 370.2 47.9 368C46.6 365.8 45 363.2 44.1 360C43.2 356.8 42.5 352.8 42.5 349C42.5 345.2 43.4 339.8 43.9 337C44.4 334.2 45 333 45.5 332C46 331 45.6 329.3 47 331C48.4 332.7 53 338.7 54.2 342C55.5 345.3 54.3 348.7 54.5 351C54.8 353.3 55.2 354.5 55.7 356C56.1 357.5 56.1 358.2 57.3 360C58.5 361.8 60.6 364.9 62.8 367C64.9 369.1 67.5 371.1 70 372.8C72.5 374.5 75.2 376 78 377.4C80.8 378.8 84.1 380.3 87 381.2C89.9 382.2 96.6 384.9 95.6 383C94.6 381.1 85.6 374.2 81 369.6C76.4 364.9 72.2 360.2 68 355C63.8 349.7 59.3 343.4 55.8 338C52.3 332.6 50.3 326.4 47 322.8C43.7 319.2 39.2 318.5 36 316.4C32.8 314.3 31 313.1 28.1 310C25.2 306.9 21.1 302.2 18.8 298C16.5 293.8 15.2 288 14.4 285C13.6 282 14 282 14.1 280C14.2 278 14.2 275.6 15.2 273C16.2 270.4 17.9 266.5 20 264.1C22.1 261.8 24.8 260 28 258.9C31.2 257.9 33.5 257.6 39 257.9C44.5 258.2 55.5 259.8 61 260.7C66.5 261.7 65.5 261.5 72 263.6C78.5 265.7 88 270 100 273.3C112 276.5 128 280.3 144 283.2C160 286.2 179.3 288.9 196 290.9C212.7 292.9 222.5 294.2 244 295.3C265.5 296.4 305.7 297.4 325 297.5C344.3 297.7 351.3 296.9 360 296.2C368.7 295.5 373.3 294.1 377 293.3C380.7 292.5 380 292.4 382 291.2C384 290 386.8 288.2 388.8 286C390.8 283.8 393.2 279.7 394 278C394.8 276.4 394.1 276.7 393.8 276C393.4 275.3 393.3 274.5 392 273.7C390.7 272.9 387.2 271.4 386 271.2C384.8 271.1 385.6 270.3 384.8 273C384 275.7 382 284.4 381 287.1C380 289.9 380.7 289 379 289.7C377.3 290.5 375 291.1 371 291.7C367 292.4 362 293.3 355 293.8C348 294.2 333.7 294.5 329 294.6C324.3 294.6 327.4 294.3 327 294C326.6 293.8 325.6 296.3 326.7 293C327.8 289.7 332.6 277.5 333.8 274C335 270.5 334.1 272.5 334 272C333.8 271.5 373.5 272.1 333 271.3C292.5 270.5 134 268.8 91 267.1C48 265.5 80.3 263.2 75 261.6C69.7 260 64.3 258.5 59 257.5C53.7 256.5 48.2 255.9 43 255.6C37.8 255.4 30.6 256 28 255.9C25.4 255.8 28 256.4 27.3 255C26.7 253.6 26.3 250.7 24 247.2C21.7 243.7 15.9 237.9 13.6 234C11.3 230.1 10.7 227.5 10.1 224C9.6 220.5 9.7 216.2 10.1 213C10.5 209.8 11.3 207.7 12.6 205C14 202.3 16 199.5 18.2 197C20.3 194.5 24 192 25.5 190C27 188 28 187 27 185C26.1 183 22.1 181.2 19.9 178C17.6 174.8 14.7 169.7 13.3 166C11.9 162.3 11.7 158.7 11.4 156C11.2 153.3 11.3 152.2 11.7 150C12 147.8 12.6 145.2 13.4 143C14.2 140.8 14.9 139.1 16.3 137C17.8 134.9 20.1 132.2 22 130.3C23.9 128.4 25.8 126.8 28 125.4C30.2 124.1 33.2 123.6 35 122C36.8 120.4 37.3 117.9 39 115.8C40.7 113.6 42.7 112.8 45.4 109C48 105.2 51.6 98 54.8 93C58 88 61 83.7 64.6 79C68.3 74.3 71.9 70 76.8 65C81.7 60 87.2 54.5 94 49C100.9 43.5 115.3 34.9 117.8 32C120.3 29.1 112.3 31.2 109 31.4C105.7 31.6 102.2 32 98 33.2C93.8 34.4 87.3 36.9 84 38.4C80.7 40 80 40.6 78 42.3C76 44 73.8 46 72 48.5C70.2 50.9 68.5 54.2 67.4 57C66.3 59.8 65.8 62.2 65.2 65C64.7 67.8 65.5 71 64.1 74C62.8 77 58.7 81 57 82.8C55.3 84.7 54.7 86.2 54 85.2C53.3 84.3 53.1 80.9 53.1 77C53.1 73.1 53.3 66.3 53.9 62C54.5 57.7 55.6 54.1 56.8 51C58 47.9 59.1 45.8 61 43.1C62.9 40.5 65.8 37.3 68 35.2C70.2 33.2 71.3 32.4 74 30.8C76.7 29.3 81 27.2 84 25.9C87 24.7 88 24.2 92 23.3C96 22.5 100.2 21 108 20.6C115.8 20.2 128.8 22.1 139 20.9C149.2 19.8 160.9 15.4 169 13.7C177.1 12.1 180 11.5 187.7 11ZM192 51C196.7 50.3 198.5 50.2 203 50.1C207.5 50.1 214.3 50.3 219 50.7C223.7 51 227 51.6 231 52.4C235 53.2 238.3 54.1 243 55.6C247.7 57.2 255 60.1 259 61.8C263 63.6 263.7 64.1 267 66.1C270.3 68.1 275.5 71.5 278.8 74C282 76.5 285.3 79.7 286.7 81C288 82.3 287.1 81.8 286.8 82C286.6 82.2 298.3 82.3 285 82.4C271.7 82.4 225.8 82.3 207 82.5C188.2 82.7 186.8 82.5 172 83.6C157.2 84.7 126.6 88.9 118.2 89C109.9 89.1 119.8 86.2 122.1 84C124.4 81.8 128.7 78.1 132 75.5C135.3 73 138.3 70.9 142 68.7C145.7 66.4 148.5 64.4 154 62C159.5 59.6 168.7 56.1 175 54.2C181.3 52.4 187.3 51.7 192 51ZM219 95C233.3 94.6 241.3 94.1 255 94.3C268.7 94.5 292.3 94.8 301 96.2C309.7 97.6 304.1 98.9 307 103C309.9 107.1 315.3 115.3 318.5 121C321.8 126.7 324.8 133.3 326.6 137C328.3 140.7 328.5 141.7 328.9 143C329.2 144.3 334.9 144.6 328.8 145C322.6 145.4 305.5 145.5 292 145.3C278.5 145.2 265.3 145 248 144.1C230.7 143.3 203.8 141.5 188 140.2C172.2 139 165 138 153 136.6C141 135.1 125.9 132.9 116 131.3C106.1 129.7 97.5 127.9 93.7 127C89.8 126.1 93 126.5 93 126C93.1 125.5 92.5 126.3 93.8 124C95.1 121.7 99.4 114.3 100.7 112C101.9 109.7 101.3 110.4 101.2 110C101 109.6 103.7 109 100 109.6C96.3 110.3 84.8 112.4 79 113.9C73.2 115.3 68.8 117 65 118.5C61.2 119.9 58 122.2 56 122.6C54 123 53.4 121.6 53.1 121C52.9 120.4 52.5 120.2 54.7 119C56.8 117.8 62.4 115.1 66 113.6C69.6 112.2 69.3 111.9 76 110.3C82.7 108.6 90.5 105.8 106 103.6C121.5 101.4 150.2 98.4 169 97C187.8 95.5 204.7 95.4 219 95ZM361.5 97C360.1 93.1 363.4 97 365 97.7C366.6 98.5 368.8 99.7 371 101.7C373.2 103.6 376.4 107.2 378 109.6C379.6 112 380.2 114.1 380.8 116C381.4 117.9 382 118.8 381.8 121C381.6 123.2 380.4 127.3 379.7 129C379.1 130.7 378.5 131 378 131.2C377.5 131.5 377.8 132.2 377 130.5C376.2 128.8 375.9 126.6 373.3 121C370.8 115.4 362.9 100.9 361.5 97ZM44.6 131C48.6 130.7 49.4 129.9 60 132C70.6 134 96.5 140.8 108 143.4C119.5 145.9 117 145.5 129 147.1C141 148.8 158.3 151.6 180 153.3C201.7 155 233.8 156.7 259 157.1C284.2 157.6 318.8 155.6 331 155.9C343.2 156.2 332.2 158.1 332 158.8C331.8 159.5 341.8 159.5 330 160.1C318.2 160.8 291.8 161.2 261 162.7C230.2 164.1 175.3 166.6 145 168.6C114.7 170.7 90.2 174.2 79 174.9C67.8 175.7 77.1 178.2 78.1 173C79 167.8 84.1 149.1 84.9 144C85.7 138.9 86.3 143.7 83 142.7C79.7 141.7 70 139.1 65 137.9C60 136.7 56 135.8 53 135.3C50 134.9 49 134.7 47 135.1C45 135.5 42.7 136.6 41 137.7C39.3 138.9 38.8 136.7 37 142C35.2 147.3 31.8 165.7 30 169.5C28.2 173.3 27.3 166.6 26.4 165C25.5 163.4 25 162 24.6 160C24.2 158 23.8 155.5 24 153C24.3 150.5 25.2 147.3 26.1 145C26.9 142.7 28 140.9 29 139.5C30 138.1 30.8 137.4 32 136.4C33.2 135.4 33.9 134.6 36 133.7C38.1 132.8 40.6 131.3 44.6 131ZM388 164C389 163.6 391.5 163.4 393 163.5C394.5 163.6 395.8 163.8 397 164.4C398.2 165 399.3 165.8 400 167.1C400.7 168.4 401.3 170.2 401.2 172C401 173.8 400.3 175.9 399.1 178C397.9 180.1 396.5 182 394 184.6C391.5 187.1 387.8 190.7 384 193.4C380.2 196.2 375.8 198.9 371 201.2C366.2 203.4 360.3 205.5 355 207C349.7 208.6 344.3 209.5 339 210.3C333.7 211.2 329.2 211.5 323 212C316.8 212.4 309.8 212.9 302 213C294.2 213.1 289.7 213.4 276 212.6C262.3 211.8 236 209.7 220 208C204 206.3 200.1 205.8 180 202.5C159.9 199.1 113.7 190.6 99.5 188C85.3 185.4 95.6 187.3 94.7 187C93.8 186.7 94.2 186.2 94.2 186C94.3 185.8 85.4 186.6 95 185.8C104.6 185 128.5 182.8 152 181.2C175.5 179.6 205.2 177.9 236 176.4C266.8 174.9 320 172.7 337 172.2C354 171.6 338 172.4 338.3 173C338.6 173.6 338.2 171 338.9 176C339.6 181 341.8 198.3 342.5 203C343.1 207.7 342.6 203.9 343 204.2C343.4 204.4 342.7 204.9 345 204.5C347.3 204.2 353 203.2 357 201.9C361 200.7 365.2 199.1 369 197.2C372.8 195.3 377 192.7 380 190.7C383 188.6 385.4 186.6 387 185C388.6 183.4 389.5 184.2 389.5 181C389.4 177.8 386.9 168.8 386.7 166C386.4 163.2 386.9 164.4 388 164ZM109.5 332C114.4 332.9 128.3 337 140 339.6C151.7 342.1 167.2 345.2 180 347.3C192.8 349.5 201.7 350.6 217 352.3C232.3 354 262.8 356.5 272 357.7C281.2 358.9 273.9 358 272 359.4C270.1 360.8 264 364.2 260.5 366C257 367.8 254.9 368.8 251 370.3C247.1 371.8 241.5 373.8 237 375C232.5 376.2 229.8 376.9 224 377.5C218.2 378 209.3 378.7 202 378.4C194.7 378.1 186.3 377 180 375.8C173.7 374.5 169.3 372.9 164 370.8C158.7 368.7 154.9 367.2 148.2 363C141.6 358.8 130.2 350.2 124 345.4C117.8 340.6 113.4 336.5 111 334.2C108.6 332 104.7 331.1 109.5 332Z"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="MOTANKA">M<svg class="knot" aria-hidden="true"><use href="#knot"/></svg>TANKA</a>
+    <nav class="links" aria-label="Main">
+      <a class="pill" href="#menu" data-i18n="nav_menu"></a>
+      <a class="pill" href="#find" data-i18n="nav_find"></a>
+      <a class="pill" href="https://www.instagram.com/motanka_cph" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button class="pill" type="button" data-lang="da" aria-pressed="false">DA</button>
+      <button class="pill" type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button class="pill" type="button" data-lang="uk" aria-pressed="false">UK</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="eyebrow"></p>
+      <h1 aria-label="MOTANKA">M<svg class="knot" aria-hidden="true"><use href="#knot"/></svg>TANKA</h1>
+      <p class="aside" data-i18n="aside"></p>
+      <p class="lede" data-i18n="lede"></p>
+      <div class="cta-row">
+        <a class="btn btn-red" href="#menu"><span data-i18n="cta_menu"></span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/motanka_cph" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="2.7"/><circle cx="11.6" cy="4.4" r="0.6" fill="currentColor"/></svg>
+          @motanka_cph</a>
+      </div>
+    </div>
+  </section>
+  <div class="stitch" aria-hidden="true"></div>
+
+  <section class="section" id="menu">
+    <div class="wrap">
+      <p class="kicker" data-i18n="menu_kicker"></p>
+      <h2 class="h-lg" data-i18n="menu_title"></h2>
+      <div class="tabs" id="tabs" role="group" aria-label="Menu categories"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <div class="stitch" aria-hidden="true"></div>
+  <section class="section about">
+    <div class="wrap">
+      <p class="kicker" data-i18n="about_kicker"></p>
+      <h2 class="h-lg" data-i18n="about_title"></h2>
+      <p class="lede" data-i18n="about_text"></p>
+    </div>
+  </section>
+
+  <div class="stitch" aria-hidden="true"></div>
+  <section class="section find" id="find">
+    <div class="wrap">
+      <p class="kicker" data-i18n="find_kicker"></p>
+      <h2 class="h-lg" data-i18n="find_title"></h2>
+      <p class="lede" data-i18n="find_text"></p>
+      <div class="cta-row">
+        <a class="btn btn-red" href="https://www.google.com/maps/search/?api=1&query=Motanka+CPH+Copenhagen" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 14s4.5-3.9 4.5-7.5a4.5 4.5 0 10-9 0C3.5 10.100 8 14 8 14z"/><circle cx="8" cy="6.500" r="1.600"/></svg>
+          <span data-i18n="cta_map"></span></a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/motanka_cph" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="2.7"/><circle cx="11.6" cy="4.4" r="0.6" fill="currentColor"/></svg>
+          @motanka_cph</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="stitch" aria-hidden="true"></div>
+<footer class="footer">
+  <div class="wrap">
+    <span style="display:inline-flex;align-items:center;gap:12px"><span class="emblem" aria-hidden="true"><svg class="knot"><use href="#knot"/></svg></span>© 2026 Motanka CPH</span>
+    <span data-i18n="footer"></span>
+  </div>
+</footer>
+
+<script>
+/* ---- Content: edit here ---- */
+const UI = {
+  da: {
+    nav_menu: 'Menu', nav_find: 'Find os',
+    eyebrow: 'Foodtruck · København', aside: '(Ukrainsk street food)',
+    lede: 'Hjemmelavet ukrainsk mad, tilberedt i en foodtruck i København.',
+    cta_menu: 'Se menuen', cta_map: 'Åbn i Google Maps',
+    menu_kicker: '◂ Varm mad fra vognen ▸', menu_title: 'Menu',
+    about_kicker: '◂ Navnet ▸', about_title: 'Motanka',
+    about_text: 'En motanka er en traditionel ukrainsk dukke af stof, lavet i hånden og uden ansigt. Den bliver passet på i hjemmet. Vi har taget navnet med til gaderne i København sammen med maden hjemmefra.',
+    find_kicker: '◂ Her holder vi ▸', find_title: 'Find vognen',
+    find_text: 'Følg os på Instagram for at se, hvor vognen står, og hvornår vi har åbent.',
+    footer: 'Ukrainsk mad i København',
+    cats: { all: 'Alle', soup: 'Suppe', mains: 'Hovedretter', sweet: 'Sødt', drinks: 'Drikke' }
+  },
+  en: {
+    nav_menu: 'Menu', nav_find: 'Find us',
+    eyebrow: 'Food truck · Copenhagen', aside: '(Ukrainian street food)',
+    lede: 'Home-style Ukrainian food, cooked in a food truck in Copenhagen.',
+    cta_menu: 'See the menu', cta_map: 'Open in Google Maps',
+    menu_kicker: '◂ Hot from the truck ▸', menu_title: 'Menu',
+    about_kicker: '◂ The name ▸', about_title: 'Motanka',
+    about_text: 'A motanka is a traditional Ukrainian cloth doll, made by hand and left without a face. It is kept at home as a charm. We brought the name to the streets of Copenhagen, along with the food from home.',
+    find_kicker: '◂ Where we park ▸', find_title: 'Find the truck',
+    find_text: 'Follow us on Instagram to see where the truck is and when we are open.',
+    footer: 'Ukrainian food in Copenhagen',
+    cats: { all: 'All', soup: 'Soup', mains: 'Mains', sweet: 'Sweet', drinks: 'Drinks' }
+  },
+  uk: {
+    nav_menu: 'Меню', nav_find: 'Де нас знайти',
+    eyebrow: 'Фудтрак · Копенгаген', aside: '(Українська вулична їжа)',
+    lede: 'Домашня українська кухня з вагончика в Копенгагені.',
+    cta_menu: 'Дивитись меню', cta_map: 'Відкрити в Google Maps',
+    menu_kicker: '◂ Гаряче з вагончика ▸', menu_title: 'Меню',
+    about_kicker: '◂ Назва ▸', about_title: 'Мотанка',
+    about_text: 'Мотанка — це традиційна українська лялька з тканини, зроблена вручну і без обличчя. Її бережуть удома як оберіг. Ми привезли цю назву на вулиці Копенгагена разом зі стравами з дому.',
+    find_kicker: '◂ Де ми стоїмо ▸', find_title: 'Де вагончик',
+    find_text: 'Слідкуйте за нами в Instagram, щоб бачити, де зараз вагончик і коли ми працюємо.',
+    footer: 'Українська кухня в Копенгагені',
+    cats: { all: 'Усе', soup: 'Суп', mains: 'Основне', sweet: 'Десерти', drinks: 'Напої' }
+  }
+};
+
+/* Sample menu: replace with the real dishes. Add `price: '85 kr'` to any item to show a price. */
+const MENU = [
+  { cat: 'soup', uk: 'Борщ', name: { da: 'Borsjtj', en: 'Borshch', uk: 'Борщ' }, tr: 'Borshch',
+    d: { da: 'Traditionel rødbedesuppe med creme fraiche.', en: 'Traditional beetroot soup with sour cream.', uk: 'Традиційний буряковий суп зі сметаною.' } },
+  { cat: 'mains', uk: 'Вареники', name: { da: 'Varenyky', en: 'Varenyky', uk: 'Вареники' }, tr: 'Varenyky',
+    d: { da: 'Dumplinger med kartofler og ost, stegt løg og creme fraiche.', en: 'Dumplings with potato and cheese, fried onion and sour cream.', uk: 'З картоплею та сиром, зі смаженою цибулею та сметаною.' } },
+  { cat: 'mains', uk: 'Голубці', name: { da: 'Holubtsi', en: 'Holubtsi', uk: 'Голубці' }, tr: 'Holubtsi',
+    d: { da: 'Kålruller med hakket kød og ris i tomatsauce.', en: 'Cabbage rolls with minced meat and rice in tomato sauce.', uk: 'Капустяні рулети з м’ясним фаршем і рисом у томатному соусі.' } },
+  { cat: 'mains', uk: 'Деруни', name: { da: 'Deruny', en: 'Deruny', uk: 'Деруни' }, tr: 'Deruny',
+    d: { da: 'Sprøde kartoffelplatter med creme fraiche.', en: 'Crispy potato pancakes with sour cream.', uk: 'Хрусткі картопляні оладки зі сметаною.' } },
+  { cat: 'mains', uk: 'Котлета по-київськи', name: { da: 'Kyiv-kylling', en: 'Chicken Kyiv', uk: 'Котлета по-київськи' }, tr: 'Kotleta po-kyivsky',
+    d: { da: 'Paneret kylling fyldt med krydderurtesmør.', en: 'Breaded chicken filled with herb butter.', uk: 'Куряча котлета в паніровці з начинкою з вершкового масла та зелені.' } },
+  { cat: 'mains', uk: 'Ковбаса', name: { da: 'Kovbasa', en: 'Kovbasa', uk: 'Ковбаса' }, tr: 'Kovbasa',
+    d: { da: 'Grillet ukrainsk pølse med sennep og syltet kål.', en: 'Grilled Ukrainian sausage with mustard and sauerkraut.', uk: 'Ковбаса на грилі з гірчицею та квашеною капустою.' } },
+  { cat: 'sweet', uk: 'Сирники', name: { da: 'Syrnyky', en: 'Syrnyky', uk: 'Сирники' }, tr: 'Syrnyky',
+    d: { da: 'Små ostepandekager med creme fraiche og syltetøj.', en: 'Small cottage cheese pancakes with sour cream and jam.', uk: 'Сирні оладки зі сметаною та варенням.' } },
+  { cat: 'sweet', uk: 'Медовик', name: { da: 'Medovyk', en: 'Medovyk', uk: 'Медовик' }, tr: 'Medovyk',
+    d: { da: 'Ukrainsk honningkage i mange lag.', en: 'Layered Ukrainian honey cake.', uk: 'Багатошаровий медовий торт.' } },
+  { cat: 'drinks', uk: 'Узвар', name: { da: 'Uzvar', en: 'Uzvar', uk: 'Узвар' }, tr: 'Uzvar',
+    d: { da: 'Kompot af tørret frugt, serveret varm eller kold.', en: 'Dried fruit compote, served warm or cold.', uk: 'Компот із сушених фруктів, подається теплим або холодним.' } },
+  { cat: 'drinks', uk: 'Квас', name: { da: 'Kvas', en: 'Kvas', uk: 'Квас' }, tr: 'Kvas',
+    d: { da: 'Læskende drik af rugbrød.', en: 'Refreshing drink made from rye bread.', uk: 'Освіжальний напій із житнього хліба.' } }
+];
+const CATS = ['all', 'soup', 'mains', 'sweet', 'drinks'];
+
+/* ---- Behaviour ---- */
+let lang = 'en', cat = 'all';
+try {
+  const saved = localStorage.getItem('motanka-lang');
+  if (UI[saved]) lang = saved;
+  else {
+    const n = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    lang = n === 'da' ? 'da' : (n === 'uk' || n === 'ru') ? 'uk' : 'en';
+  }
+} catch (e) {
+  const n = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  lang = n === 'da' ? 'da' : (n === 'uk' || n === 'ru') ? 'uk' : 'en';
+}
+
+function render() {
+  const t = UI[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t[el.dataset.i18n]; });
+  document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  CATS.forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pill'; b.textContent = t.cats[c];
+    b.setAttribute('aria-pressed', String(c === cat));
+    b.addEventListener('click', () => { cat = c; render(); });
+    tabs.appendChild(b);
+  });
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  MENU.filter(m => cat === 'all' || m.cat === cat).forEach(m => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = t.cats[m.cat];
+    const h = document.createElement('h3'); h.textContent = m.name[lang];
+    const sub = document.createElement('p'); sub.className = 'sub'; sub.textContent = lang === 'uk' ? m.tr : m.uk;
+    const d = document.createElement('p'); d.className = 'd'; d.textContent = m.d[lang];
+    card.append(tag, h, sub, d);
+    if (m.price) { const p = document.createElement('p'); p.className = 'sub'; p.textContent = m.price; card.append(p); }
+    grid.appendChild(card);
+  });
+}
+
+document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => {
+  lang = b.dataset.lang;
+  try { localStorage.setItem('motanka-lang', lang); } catch (e) {}
+  render();
+}));
+render();
+</script>
+</body>
+</html>
