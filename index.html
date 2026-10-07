@@ -76,6 +76,8 @@ a { color: inherit; }
 .hero h1 {
   font-family: var(--display); font-weight: 900; color: var(--red); text-transform: uppercase;
   font-size: clamp(4.5rem, 24vw, 22rem); line-height: 0.8; letter-spacing: 0.04em; margin: 0; padding-bottom: 0.1em; white-space: nowrap;
+  /* the word is wider than the page column, so centre it on the column instead of letting it spill right */
+  width: max-content; position: relative; left: 50%; transform: translateX(-50%); padding-left: 0.04em;
 }
 .aside { font-family: var(--display); font-weight: 800; text-transform: uppercase; color: var(--bone); font-size: clamp(1.4rem, 5vw, 3rem); letter-spacing: 0.06em; margin: 20px 0 0; line-height: 1; }
 .lede { max-width: 56ch; margin: 24px auto 0; color: var(--muted); }
